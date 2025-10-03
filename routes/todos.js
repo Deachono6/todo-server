@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 
     //check for match date format YYYY-MM-DD
     if (!dateStart.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-      return res.status(400).json("Error: Date format should be MM/DD/YYYY");
+      return res.status(400).json({message:"Error: Date format should be MM/DD/YYYY"});
     }
 
     const newTodo = new Todo(req.body);
