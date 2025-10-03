@@ -18,6 +18,11 @@ router.get('/test', (req, res) => {
 // POST a new todo
 router.post("/", async (req, res) => {
   try {
+   let dateStart = req.body.date_start
+   //check for match date format YYYY-MM-DD
+    if(!dateStart.match(/^\d{4}-\d{2}-\d{2}$/)){
+      return res.status(400).json("Error: Date format should be YYYY-MM-DD");
+    }
     const newTodo = new Todo(req.body);
     const savedTodo = await newTodo.save();
     res.json(savedTodo);
