@@ -11,18 +11,20 @@ router.get("/", async (req, res) => {
     res.status(400).json("Error: " + error);
   }
 });
-router.get('/test', (req, res) => {
-  res.json({ message: 'route works' });
+router.get("/test", (req, res) => {
+  res.json({ message: "route works" });
 });
 
 // POST a new todo
 router.post("/", async (req, res) => {
   try {
-   let dateStart = req.body.date_start
-   //check for match date format YYYY-MM-DD
-    if(!dateStart.match(/^\d{4}-\d{2}-\d{2}$/)){
-      return res.status(400).json("Error: Date format should be YYYY-MM-DD");
+    let dateStart = req.body.date_start;
+
+    //check for match date format YYYY-MM-DD
+    if (!dateStart.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+      return res.status(400).json("Error: Date format should be MM/DD/YYYY");
     }
+
     const newTodo = new Todo(req.body);
     const savedTodo = await newTodo.save();
     res.json(savedTodo);
@@ -70,6 +72,5 @@ router.get("/search", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
 
 module.exports = router;
