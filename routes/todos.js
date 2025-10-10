@@ -11,9 +11,6 @@ router.get("/", async (req, res) => {
     res.status(400).json("Error: " + error);
   }
 });
-router.get("/test", (req, res) => {
-  res.json({ message: "route works" });
-});
 
 // POST a new todo
 router.post("/", async (req, res) => {
@@ -22,7 +19,9 @@ router.post("/", async (req, res) => {
 
     //check for match date format YYYY-MM-DD
     if (!dateStart.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-      return res.status(400).json({message:"Error: Date format should be DD/MM/YYYY"});
+      return res
+        .status(400)
+        .json({ message: "Error: Date format should be DD/MM/YYYY" });
     }
 
     const newTodo = new Todo(req.body);
