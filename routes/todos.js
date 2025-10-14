@@ -2,17 +2,17 @@ const express = require("express");
 const router = express.Router();
 const Todo = require("../models/Todo");
 
-// GET all todos
+
 router.get("/", async (req, res) => {
   try {
-    const todos = await Todo.find();
+     const todos = await Todo.find().sort({ date_start: 1 }); // 1 = เรียงจากเก่าสุดไปใหม่สุด
     res.json(todos);
   } catch (error) {
     res.status(400).json("Error: " + error);
   }
 });
 
-// POST a new todo
+
 router.post("/", async (req, res) => {
   try {
     let dateStart = req.body.date_start;
@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// PUT update a todo
+
 router.put("/:id", async (req, res) => {
   try {
     const todo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
@@ -44,7 +44,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// DELETE a todo
 router.delete("/:id", async (req, res) => {
   try {
     await Todo.findByIdAndDelete(req.params.id);

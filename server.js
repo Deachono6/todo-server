@@ -15,7 +15,7 @@ app.use(express.json());
 app.use('/api/todos', todoRoutes);
 
 // MongoDB connection
-const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/todo-app';
+const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/tododb';
 mongoose.connect(uri)
     .then(() => console.log('MongoDB connection established successfully'))
     .catch(err => console.log('Error connecting to MongoDB:', err));
